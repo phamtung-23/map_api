@@ -105,19 +105,6 @@ async function initMap() {
     polyline.setMap(map);
   }
 
-  // polyline default
-  
-
-  const flightPath1 = new google.maps.Polyline({
-    path: flightPlanCoordinates1,
-    geodesic: true,
-    strokeColor: "#FF0000",
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-  });
-
-  flightPath1.setMap(map);
-
   // drag marker
   const infoWindow = new InfoWindow();
   const draggableMarker = new AdvancedMarkerElement({
@@ -167,7 +154,7 @@ function toggleHighlight(markerView, property) {
       <div class="mt-2"><b>Thời gian: </b>${property.time}</div>
       <div class="mt-2"><b>Địa điểm: </b>${property.address}</div>
       <div class="mt-2"><b>Dịch vụ: </b>${property.service}</div>
-      <div class="mt-2"><b>Thông tin: </b>${property.infoCustomer}</div>
+      <div class="mt-2"><b>Khách hàng: </b>${property.infoCustomer}</div>
       <div class="mt-2"><b>Vị trí: </b> ${property.position.lat}, ${property.position.lng}</div>
       <div class="mt-2"><b>Phạm Vi:</b> ${property.description}</div>
       <div class="gallery">
@@ -186,7 +173,7 @@ function toggleHighlight(markerView, property) {
     const imageArray = property.gallery;
     // Load the images from the array
     for (let i = 0; i < imageArray.length; i++) {
-      html += ` <img class="mySlides" src="${imageArray[i]}" style="width:100%" height="250px">`
+      html += ` <img class="mySlides w3-animate-right" src="${imageArray[i]}" style="width:100%" height="250px">`
     }
     gallery.innerHTML = html
     showDivs(slideIndex);
@@ -202,6 +189,7 @@ function buildContent(property) {
         <img src="static/oil_platform-removebg-preview.png" width="100%">
     </div>
     <div class="details">
+        <div class="close" style="text-align: end;"><i class="fa fa-times" aria-hidden="true"></i></div>
         <div class="price">${property.name}</div>
         <div class="address">${property.address}</div>
         <div class="features">

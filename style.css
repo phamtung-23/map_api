@@ -94,6 +94,12 @@ body {
   margin-top: 5px;
 }
 
+.close {
+  font-size: 20px;
+  color: #9E9E9E;
+ 
+}
+
 .property .features {
   align-items: flex-end;
   display: flex;

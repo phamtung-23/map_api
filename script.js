@@ -1,20 +1,23 @@
 let map;
 //@ts-ignore
 let featureLayer;
+let locationDefault = { lat: 12.173683163790095, lng: 111.60763757035161 };
+let googleMapId = "f31626ad9b6aaff9"
+let placeIdVietNam = "ChIJXx5qc016FTERvmL-4smwO7A"
+let positionOfMarkerDrag = {lat: 21.028194139483286, lng: 105.82882897494626}
+
 async function initMap() {
-  // Request needed libraries.
+  // ========== create map default =====================================
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement,  PinElement } = await google.maps.importLibrary("marker"); 
   const map = new Map(document.getElementById("map"), {
-    center: { lat: 8.74076778165698, lng: 108.82882897494626 },
-    zoom: 8,
-    mapId: "f31626ad9b6aaff9",
+    center: locationDefault,
+    zoom: 6,
+    mapId: googleMapId,
   });
-  //@ts-ignore
-  featureLayer = map.getFeatureLayer("COUNTRY");
 
-  // Define a style with purple fill and border.
-  //@ts-ignore
+  // ========== Style a boundary polygon ===============================
+  featureLayer = map.getFeatureLayer("COUNTRY");
   const featureStyleOptions = {
     strokeColor: "#810FCB",
     strokeOpacity: 1.0,
@@ -22,18 +25,15 @@ async function initMap() {
     fillColor: "#810FCB",
     fillOpacity: 0.5,
   };
-
-  // Apply the style to a single boundary.
-  //@ts-ignore
   featureLayer.style = (options) => {
     console.log(options)
-    if (options.feature.placeId == "ChIJXx5qc016FTERvmL-4smwO7A") {
+    if (options.feature.placeId == placeIdVietNam) {
       return featureStyleOptions;
     }
   };
 
   
-// show detail info
+// =========== show detail info of marker when click =======================
   for (const property of properties) {
     const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
       map,
@@ -48,7 +48,7 @@ async function initMap() {
       
     });
   }
-  // polyline default
+  //========== polyline default ==========================================
   const flightPlanCoordinates = [
     { lat: 18.729, lng: 105.820 },
     { lat: 18.729, lng: 107.026 },
@@ -127,30 +127,26 @@ async function initMap() {
     polyline.setMap(map);
   }
 
-  // drag marker
+  // ============= drag marker on map ================================================
   const infoWindow = new InfoWindow();
   const draggableMarker = new AdvancedMarkerElement({
     map,
-    position: {lat: 21.028194139483286, lng: 105.82882897494626},
+    position: positionOfMarkerDrag,
     gmpDraggable: true,
     title: "This marker is draggable.",
   });
-
   draggableMarker.addListener("dragend", (event) => {
-    const position = draggableMarker.position;
-
     infoWindow.close();
     infoWindow.setContent(
       JSON.stringify(event.latLng.toJSON(), null, 2)
     );
     infoWindow.open(draggableMarker.map, draggableMarker);
   });
-
-
-  
 }
+initMap();
 
-// function show info detail
+
+// ======== function show info detail of marker =======================
 function toggleHighlight(markerView, property) {
   const reviewElement = document.getElementById("review");
   const mapElement = document.getElementById("map");
@@ -187,13 +183,10 @@ function toggleHighlight(markerView, property) {
             <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
           </div>
         </div>
-      </div>
-      `;
-
+      </div>`;
     const gallery = document.querySelector(".gallery-img");
     let html = ``
     const imageArray = property.gallery;
-    // Load the images from the array
     for (let i = 0; i < imageArray.length; i++) {
       html += ` <img class="mySlides w3-animate-right" src="${imageArray[i]}" style="width:100%" height="250px">`
     }
@@ -201,10 +194,9 @@ function toggleHighlight(markerView, property) {
     showDivs(slideIndex);
   }
 }
-
+// ===========The function is show popup when click the marker ============
 function buildContent(property) {
   const content = document.createElement("div");
-
   content.classList.add("property");
   let HTML = `
     <div class="icon">
@@ -224,13 +216,11 @@ function buildContent(property) {
             <span>${property.position.lng}</span>
         </div>
         </div>
-    </div>
-
-    `;
-    content.innerHTML = HTML;
+    </div>`;
+  content.innerHTML = HTML;
   return content;
 }
-
+// ======== the information of all marker ===================================
 const properties = [
   {
     name: "Dàn đầu giếng (WHP) Đông Đô",
@@ -309,7 +299,7 @@ const properties = [
     }
   },
 ];
-// ========gallery===========
+// ======== create slider inside the information tab ================
 var slideIndex = 1;
 function plusDivs(n) {
   showDivs(slideIndex += n);
@@ -320,7 +310,6 @@ function currentDiv(n) {
 function showDivs(n) {
   var i;
   var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
   if (n > x.length) {slideIndex = 1}
   if (n < 1) {slideIndex = x.length}
   for (i = 0; i < x.length; i++) {
@@ -332,4 +321,4 @@ setInterval(() => {
   plusDivs(1);
 }, 3000);
 
-initMap();
+

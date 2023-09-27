@@ -323,7 +323,6 @@ const properties = [
       "static/SVDN CPP Topsides (2).jpg",
       "static/SVDN CPP Topsides (3).JPG",
       "static/SVDN CPP Topsides (4).JPG",
-      "static/SVDN Offshore_adjusted  (1b)-2.png",
   ],
     position: {
       lat: 8.079985918665942,
@@ -351,6 +350,6 @@ function showDivs(n) {
 }
 setInterval(() => {
   plusDivs(1);
-}, 3000);
+}, 3500);
 
 

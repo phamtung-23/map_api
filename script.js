@@ -19,15 +19,15 @@ async function initMap() {
   // ========== Style a boundary polygon ===============================
   featureLayer = map.getFeatureLayer("COUNTRY");
   const featureStyleOptions = {
-    strokeColor: "#810FCB",
+    strokeColor: "#A9A9A9",
     strokeOpacity: 1.0,
-    strokeWeight: 3.0,
-    fillColor: "#810FCB",
+    strokeWeight: 1.0,
+    fillColor: "#222222",
     fillOpacity: 0.5,
   };
   featureLayer.style = (options) => {
     console.log(options)
-    if (options.feature.placeId == placeIdVietNam) {
+    if (options.feature.placeId != placeIdVietNam) {
       return featureStyleOptions;
     }
   };

@@ -1,10 +1,10 @@
 let map;
 //@ts-ignore
 let featureLayer;
-let locationDefault = { lat: 12.173683163790095, lng: 111.60763757035161 };
+let locationDefault = { lat: 8.796418492121676, lng: 104.98927680019787 };
 let googleMapId = "f31626ad9b6aaff9"
 let placeIdVietNam = "ChIJXx5qc016FTERvmL-4smwO7A"
-let positionOfMarkerDrag = {lat: 21.028194139483286, lng: 105.82882897494626}
+let positionOfMarkerDrag = {lat: 7.191, lng: 103.820 }
 
 async function initMap() {
   // ========== create map default =====================================
@@ -12,7 +12,7 @@ async function initMap() {
   const { AdvancedMarkerElement,  PinElement } = await google.maps.importLibrary("marker"); 
   const map = new Map(document.getElementById("map"), {
     center: locationDefault,
-    zoom: 6,
+    zoom: 7,
     mapId: googleMapId,
   });
 
@@ -105,6 +105,21 @@ async function initMap() {
     {lat:8.223, lng:109.397},
     {lat:8.029, lng:109.270}
   ];
+  const flightPlanCoordinates5 = [
+    {lat:7.829, lng:103.010},
+    {lat:7.501, lng:103.007},
+    {lat:7.401, lng:103.407},
+    {lat:7.001, lng:103.887},
+    {lat:6.201, lng:105.887},
+    {lat:6.851, lng:104.507},
+    {lat:7.829, lng:103.010}
+  ];
+  const pipeline = [
+    {lat: 8.856, lng: 104.880 },
+    {lat: 8.849, lng: 104.604 },
+    {lat: 7.191, lng: 103.820 }
+  ];
+
 
   const polylines = [
     flightPlanCoordinates, 
@@ -113,16 +128,33 @@ async function initMap() {
     flightPlanCoordinates3,
     flightPlanCoordinates4,
     goldenStar1,
-    goldenStar2
+    goldenStar2,
+    flightPlanCoordinates5,
+
   ];
+
+  const pipelineList = [
+    pipeline
+  ]
   // Loop through each set of coordinates and draw the polyline
   for (let i = 0; i < polylines.length; i++) {
     const polyline = new google.maps.Polyline({
       path: polylines[i],
       geodesic: true,
-      strokeColor: "#FF0000",
+      strokeColor: "#111111",
       strokeOpacity: 1.0,
       strokeWeight: 1,
+    });
+    polyline.setMap(map);
+  }
+  // Loop through each set of coordinates and draw the pipeline
+  for (let i = 0; i < pipelineList.length; i++) {
+    const polyline = new google.maps.Polyline({
+      path: pipelineList[i],
+      geodesic: true,
+      strokeColor: "#EE0000",
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
     });
     polyline.setMap(map);
   }

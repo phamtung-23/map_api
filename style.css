@@ -223,6 +223,7 @@ body {
 /* ======gallery======== */
 .gallery{
   margin: 30px 0;
+  overflow: hidden;
 }
 .mySlides {
   display:none

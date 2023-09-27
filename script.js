@@ -1,3 +1,6 @@
+let map;
+//@ts-ignore
+let featureLayer;
 async function initMap() {
   // Request needed libraries.
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
@@ -5,10 +8,29 @@ async function initMap() {
   const map = new Map(document.getElementById("map"), {
     center: { lat: 8.74076778165698, lng: 108.82882897494626 },
     zoom: 8,
-    mapId: "4504f8b37365c3d0",
-    mapTypeId: 'hybrid'
+    mapId: "f31626ad9b6aaff9",
   });
-  
+  //@ts-ignore
+  featureLayer = map.getFeatureLayer("COUNTRY");
+
+  // Define a style with purple fill and border.
+  //@ts-ignore
+  const featureStyleOptions = {
+    strokeColor: "#810FCB",
+    strokeOpacity: 1.0,
+    strokeWeight: 3.0,
+    fillColor: "#810FCB",
+    fillOpacity: 0.5,
+  };
+
+  // Apply the style to a single boundary.
+  //@ts-ignore
+  featureLayer.style = (options) => {
+    console.log(options)
+    if (options.feature.placeId == "ChIJXx5qc016FTERvmL-4smwO7A") {
+      return featureStyleOptions;
+    }
+  };
 
   
 // show detail info

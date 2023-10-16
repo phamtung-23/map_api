@@ -2,7 +2,7 @@ let map;
 //@ts-ignore
 let featureLayer;
 let locationDefault = { lat: 8.796418492121676, lng: 104.98927680019787 };
-let googleMapId = "f31626ad9b6aaff9"
+let googleMapId = "fc446ee18c58e395"
 let placeIdVietNam = "ChIJXx5qc016FTERvmL-4smwO7A"
 let positionOfMarkerDrag = {lat: 7.191, lng: 103.820 }
 
@@ -11,68 +11,68 @@ async function initMap() {
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement,  PinElement } = await google.maps.importLibrary("marker"); 
 
-  const styledMapType = new google.maps.StyledMapType(
-    [
-      {
-          "featureType": "landscape.natural.landcover",
-          "elementType": "geometry.fill",
-          "stylers": [
-              {
-                  "hue": "#6cff00"
-              },
-              {
-                  "saturation": "-40"
-              },
-              {
-                  "lightness": "-10"
-              },
-              {
-                  "gamma": "1.00"
-              }
-          ]
-      },
-      {
-          "featureType": "road",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "visibility": "simplified"
-              }
-          ]
-      },
-      {
-          "featureType": "water",
-          "elementType": "geometry.fill",
-          "stylers": [
-              {
-                  "lightness": "0"
-              },
-              {
-                  "gamma": "1.00"
-              },
-              {
-                  "saturation": "0"
-              },
-              {
-                  "color": "#62accc"
-              }
-          ]
-      }
-  ],
-    { name: "Styled Map" },
-  );
+  // const styledMapType = new google.maps.StyledMapType(
+  //   [
+  //     {
+  //         "featureType": "landscape.natural.landcover",
+  //         "elementType": "geometry.fill",
+  //         "stylers": [
+  //             {
+  //                 "hue": "#6cff00"
+  //             },
+  //             {
+  //                 "saturation": "-40"
+  //             },
+  //             {
+  //                 "lightness": "-10"
+  //             },
+  //             {
+  //                 "gamma": "1.00"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "road",
+  //         "elementType": "all",
+  //         "stylers": [
+  //             {
+  //                 "visibility": "simplified"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "water",
+  //         "elementType": "geometry.fill",
+  //         "stylers": [
+  //             {
+  //                 "lightness": "0"
+  //             },
+  //             {
+  //                 "gamma": "1.00"
+  //             },
+  //             {
+  //                 "saturation": "0"
+  //             },
+  //             {
+  //                 "color": "#62accc"
+  //             }
+  //         ]
+  //     }
+  // ],
+  //   { name: "Styled Map" },
+  // );
 
   const map = new Map(document.getElementById("map"), {
     center: locationDefault,
     zoom: 7,
     mapId: googleMapId,
-    mapTypeControlOptions: {
-      mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
-    },
+    // mapTypeControlOptions: {
+    //   mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
+    // },
   });
 
-  map.mapTypes.set("styled_map", styledMapType);
-  map.setMapTypeId("styled_map");
+  // map.mapTypes.set("styled_map", styledMapType);
+  // map.setMapTypeId("styled_map");
   // ========== Style a boundary polygon ===============================
   featureLayer = map.getFeatureLayer("COUNTRY");
   const featureStyleOptions = {

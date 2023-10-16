@@ -10,12 +10,69 @@ async function initMap() {
   // ========== create map default =====================================
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { AdvancedMarkerElement,  PinElement } = await google.maps.importLibrary("marker"); 
+
+  const styledMapType = new google.maps.StyledMapType(
+    [
+      {
+          "featureType": "landscape.natural.landcover",
+          "elementType": "geometry.fill",
+          "stylers": [
+              {
+                  "hue": "#6cff00"
+              },
+              {
+                  "saturation": "-40"
+              },
+              {
+                  "lightness": "-10"
+              },
+              {
+                  "gamma": "1.00"
+              }
+          ]
+      },
+      {
+          "featureType": "road",
+          "elementType": "all",
+          "stylers": [
+              {
+                  "visibility": "simplified"
+              }
+          ]
+      },
+      {
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [
+              {
+                  "lightness": "0"
+              },
+              {
+                  "gamma": "1.00"
+              },
+              {
+                  "saturation": "0"
+              },
+              {
+                  "color": "#62accc"
+              }
+          ]
+      }
+  ],
+    { name: "Styled Map" },
+  );
+
   const map = new Map(document.getElementById("map"), {
     center: locationDefault,
     zoom: 7,
     mapId: googleMapId,
+    mapTypeControlOptions: {
+      mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
+    },
   });
 
+  map.mapTypes.set("styled_map", styledMapType);
+  map.setMapTypeId("styled_map");
   // ========== Style a boundary polygon ===============================
   featureLayer = map.getFeatureLayer("COUNTRY");
   const featureStyleOptions = {

@@ -206,7 +206,7 @@ async function initMap() {
     const polyline = new google.maps.Polyline({
       path: polylines[i],
       geodesic: true,
-      strokeColor: "#111111",
+      strokeColor: "#417b96",
       strokeOpacity: 1.0,
       strokeWeight: 1,
     });
@@ -224,7 +224,7 @@ async function initMap() {
         if (isPointInPolygon(event.latLng, polylines[i])) {
           hoveredPolyline = new google.maps.Polygon({
             paths: polylines[i],
-            strokeColor: '#F8F8FF',
+            strokeColor: '#417b96',
             strokeOpacity: 0.8,
             strokeWeight: 1,
             fillColor: '#F8F8FF',

@@ -104,6 +104,9 @@ async function initMap() {
       
       
     });
+
+    
+
   }
   //========== polyline default ==========================================
   const flightPlanCoordinates = [
@@ -114,6 +117,7 @@ async function initMap() {
     { lat: 18.729, lng: 105.820 },
   ];
   const flightPlanCoordinates1 = [
+    { lat: 19.177, lng: 105.820 },
     { lat: 19.177, lng: 107.026 },
     { lat: 19.377, lng: 107.020 },
     { lat: 19.677, lng: 107.520 },
@@ -122,6 +126,7 @@ async function initMap() {
     { lat: 19.177, lng: 105.820 },
   ];
   const flightPlanCoordinates2 = [
+    { lat: 19.677, lng: 106.020 },
     { lat: 19.677, lng: 107.520 },
     { lat: 20.477, lng: 107.500 },
     { lat: 20.477, lng: 106.800 },
@@ -129,6 +134,7 @@ async function initMap() {
     
   ];
   const flightPlanCoordinates3 = [
+    { lat: 20.477, lng: 107.200 },
     { lat: 19.677, lng: 107.520 },
     { lat: 20.220, lng: 107.900 },
     { lat: 21.120, lng: 107.700 },
@@ -141,7 +147,7 @@ async function initMap() {
     {lat:14.929, lng:110.180},
     {lat:14.323, lng:110.191},
     {lat:14.323, lng:109.257},
-    {lat:14.929, lng:109.070}
+    {lat:14.929, lng:109.070},
     
   ];
 
@@ -193,6 +199,8 @@ async function initMap() {
   const pipelineList = [
     pipeline
   ]
+
+  const boundaries = [];
   // Loop through each set of coordinates and draw the polyline
   for (let i = 0; i < polylines.length; i++) {
     const polyline = new google.maps.Polyline({
@@ -202,8 +210,65 @@ async function initMap() {
       strokeOpacity: 1.0,
       strokeWeight: 1,
     });
+
+    // Lắng nghe sự kiện mousemove trên bản đồ
+    google.maps.event.addListener(map, 'mousemove', function (event) {
+      // Xóa biên giới cũ nếu có
+      if (hoveredPolyline) {
+        hoveredPolyline.setMap(null);
+        hoveredPolyline = null;
+      }
+      
+      // Kiểm tra xem chuột nằm trong vùng nào và vẽ biên giới
+      for (let i = 0; i < polylines.length; i++) {
+        if (isPointInPolygon(event.latLng, polylines[i])) {
+          hoveredPolyline = new google.maps.Polygon({
+            paths: polylines[i],
+            strokeColor: '#F8F8FF',
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: '#F8F8FF',
+            fillOpacity: 0.35,
+          });
+          hoveredPolyline.setMap(map);
+          break; // Dừng khi tìm thấy polyline đầu tiên nằm trong vùng
+        }
+      }
+    });
+
+    // Lắng nghe sự kiện mouseout trên bản đồ
+    google.maps.event.addListener(map, 'mouseout', function () {
+      // Xóa biên giới khi chuột ra khỏi bản đồ
+      if (hoveredPolyline) {
+        hoveredPolyline.setMap(null);
+        hoveredPolyline = null;
+      }
+    });
+
     polyline.setMap(map);
   }
+  // Khởi tạo biến để lưu trạng thái polyline đang được hover
+let hoveredPolyline = null;
+
+// Sử dụng hàm để kiểm tra xem một điểm có nằm trong polygon không
+function isPointInPolygon(point, polygon) {
+  const x = point.lat();
+  const y = point.lng();
+  let isInside = false;
+
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const xi = polygon[i].lat;
+    const yi = polygon[i].lng;
+    const xj = polygon[j].lat;
+    const yj = polygon[j].lng;
+
+    const intersect = ((yi > y) != (yj > y)) &&
+      (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi);
+    if (intersect) isInside = !isInside;
+  }
+
+  return isInside;
+}
   // Loop through each set of coordinates and draw the pipeline
   for (let i = 0; i < pipelineList.length; i++) {
     const polyline = new google.maps.Polyline({
@@ -289,7 +354,7 @@ function buildContent(property) {
   content.classList.add("property");
   let HTML = `
     <div class="icon">
-        <img src="static/oil_platform-removebg-preview.png" width="100%">
+        <img src="static/icon-oil-rig.png" width="100%">
     </div>
     <div class="details">
         <div class="close" style="text-align: end;"><i class="fa fa-times" aria-hidden="true"></i></div>

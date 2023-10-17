@@ -1,10 +1,10 @@
 let map;
 //@ts-ignore
 let featureLayer;
-let locationDefault = { lat: 8.796418492121676, lng: 104.98927680019787 };
+let locationDefault = { lat: 15.689322785095122, lng: 107.96184570309674 };
 let googleMapId = "fc446ee18c58e395"
 let placeIdVietNam = "ChIJXx5qc016FTERvmL-4smwO7A"
-let positionOfMarkerDrag = {lat: 7.191, lng: 103.820 }
+let positionOfMarkerDrag = { lat: 15.689322785095122, lng: 107.96184570309674 }
 
 async function initMap() {
   // ========== create map default =====================================
@@ -64,7 +64,7 @@ async function initMap() {
 
   const map = new Map(document.getElementById("map"), {
     center: locationDefault,
-    zoom: 7,
+    zoom: 6,
     mapId: googleMapId,
     // mapTypeControlOptions: {
     //   mapTypeIds: ["roadmap", "satellite", "hybrid", "terrain", "styled_map"],
@@ -89,7 +89,6 @@ async function initMap() {
     }
   };
 
-  
 // =========== show detail info of marker when click =======================
   for (const property of properties) {
     const AdvancedMarkerElement = new google.maps.marker.AdvancedMarkerElement({
@@ -135,6 +134,7 @@ async function initMap() {
   ];
   const flightPlanCoordinates3 = [
     { lat: 20.477, lng: 107.200 },
+    { lat: 20.477, lng: 107.500 },
     { lat: 19.677, lng: 107.520 },
     { lat: 20.220, lng: 107.900 },
     { lat: 21.120, lng: 107.700 },

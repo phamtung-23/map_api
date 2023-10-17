@@ -14,20 +14,68 @@ async function initMap() {
   // const styledMapType = new google.maps.StyledMapType(
   //   [
   //     {
+  //         "featureType": "administrative.country",
+  //         "elementType": "geometry.stroke",
+  //         "stylers": [
+  //             {
+  //                 "visibility": "on"
+  //             },
+  //             {
+  //                 "color": "#b2b2b2"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "administrative.country",
+  //         "elementType": "labels.text",
+  //         "stylers": [
+  //             {
+  //                 "visibility": "on"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "administrative.province",
+  //         "elementType": "geometry.stroke",
+  //         "stylers": [
+  //             {
+  //                 "color": "#b9b3b3"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "administrative.province",
+  //         "elementType": "labels",
+  //         "stylers": [
+  //             {
+  //                 "visibility": "off"
+  //             }
+  //         ]
+  //     },
+  //     {
   //         "featureType": "landscape.natural.landcover",
   //         "elementType": "geometry.fill",
   //         "stylers": [
   //             {
-  //                 "hue": "#6cff00"
+  //                 "saturation": "-50"
   //             },
   //             {
-  //                 "saturation": "-40"
-  //             },
-  //             {
-  //                 "lightness": "-10"
+  //                 "lightness": "90"
   //             },
   //             {
   //                 "gamma": "1.00"
+  //             },
+  //             {
+  //                 "hue": "#6cff00"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "landscape.natural.landcover",
+  //         "elementType": "geometry.stroke",
+  //         "stylers": [
+  //             {
+  //                 "visibility": "on"
   //             }
   //         ]
   //     },
@@ -36,7 +84,16 @@ async function initMap() {
   //         "elementType": "all",
   //         "stylers": [
   //             {
+  //                 "hue": "#009fff"
+  //             },
+  //             {
+  //                 "lightness": "50"
+  //             },
+  //             {
   //                 "visibility": "simplified"
+  //             },
+  //             {
+  //                 "gamma": "1"
   //             }
   //         ]
   //     },
@@ -45,7 +102,7 @@ async function initMap() {
   //         "elementType": "geometry.fill",
   //         "stylers": [
   //             {
-  //                 "lightness": "0"
+  //                 "lightness": "60"
   //             },
   //             {
   //                 "gamma": "1.00"
@@ -54,7 +111,16 @@ async function initMap() {
   //                 "saturation": "0"
   //             },
   //             {
-  //                 "color": "#62accc"
+  //                 "hue": "#008eff"
+  //             }
+  //         ]
+  //     },
+  //     {
+  //         "featureType": "water",
+  //         "elementType": "geometry.stroke",
+  //         "stylers": [
+  //             {
+  //                 "color": "#e60505"
   //             }
   //         ]
   //     }
@@ -79,7 +145,7 @@ async function initMap() {
     strokeColor: "#A9A9A9",
     strokeOpacity: 1.0,
     strokeWeight: 1.0,
-    fillColor: "#222222",
+    fillColor: "#DDDDDD",
     fillOpacity: 0.5,
   };
   featureLayer.style = (options) => {
